@@ -12,8 +12,9 @@ export default new Router({
       name: 'home',
       component: Home
     }, {
-      path: '/specs',
+      path: '/specs/:id',
       name: 'specs',
+      props: true,
       component: Specs
     }, {
       path: '*',

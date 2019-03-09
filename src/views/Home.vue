@@ -2,13 +2,13 @@
   <div class="home">
     <h1>Helpdesk</h1>
     <p>Welcome to Helpdesk! Here you can submit your questions and recieve answers.</p>
-    <form class="centerthing" @submit.prevent="">
+    <form class="centerthing" @submit.prevent="createBug">
       <div class="form-group form-inline">
-        <input class="form-control w-50" type="text" v-model="data.creator" placeholder="username">
-        <input class="form-control w-50" type="text" v-model="data.title" placeholder="title"><br>
+        <input class="form-control w-50" type="text" v-model="data.creator" placeholder="username" required>
+        <input class="form-control w-50" type="text" v-model="data.title" placeholder="title" required><br>
       </div>
-      <textarea class="form-control w-50" v-model="data.description" cols="80" rows="2"
-        placeholder="describe the issue"></textarea><br>
+      <textarea class="form-control w-50 mb-2" v-model="data.description" cols="80" rows="2"
+        placeholder="describe the issue" required></textarea>
       <button class="btn btn-info mb-5" type="submit">SUBMIT</button>
     </form>
     <div class="centerthing">
@@ -22,11 +22,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="bug in bugs" class="table-danger">
-            <th scope="row">{{bug.timestamp}}</th>
-            <td>{{bug.title}}</td>
-            <td>{{bug.creator}}</td>
-            <td>{{bug.open}}</td>
+          <tr @click="setActiveBug(bug)" v-for="bug in bugs" class="table-danger pointer">
+            <td scope="row">{{bug.createdAt | createdAtTransform}}</td>
+            <th>{{bug.title}}</th>
+            <td><i class="fas fa-user"></i> {{bug.creator}}</td>
+            <td>{{bug.closed ? 'Closed' : 'Active'}}</td>
           </tr>
         </tbody>
       </table>
@@ -46,7 +46,6 @@
     data() {
       return {
         data: {
-          open: true,
           description: '',
           title: '',
           creator: '',
@@ -56,9 +55,43 @@
     },
     components: {
     },
+    filters: {
+      createdAtTransform: function (date) {
+        let final = ''
+        let newArr = date.split('')
+        for (let i = 0; i < 8; i++) {
+          newArr.pop()
+        }
+        newArr[10] = " "
+        let output = newArr.join('').split(' ')
+        final += output[0]
+        for (let i = 0; i < 8; i++) {
+          newArr.pop()
+        }
+        newArr[10] = " "
+        let time = output[1].split(':')
+        let hours = Number(time[0])
+        let minutes = time[1]
+        if (hours <= 12) {
+          final += (' ' + hours.toString() + ':' + minutes + 'am')
+        }
+        else if (hours > 12) {
+          final += (' at ' + (hours - 12).toString() + ':' + minutes + 'pm')
+        }
+        return final
+      }
+    },
     computed: {
       bugs() {
         return this.$store.state.bugs
+      }
+    },
+    methods: {
+      createBug() {
+        this.$store.dispatch('newBug', this.data)
+      },
+      setActiveBug(bug) {
+        this.$store.dispatch('setActiveBug', bug)
       }
     }
   }
@@ -74,5 +107,9 @@
 
   .table {
     width: 80%;
+  }
+
+  .pointer {
+    cursor: pointer;
   }
 </style>
