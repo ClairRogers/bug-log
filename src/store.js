@@ -70,8 +70,41 @@ export default new Vuex.Store({
           dispatch('getComments', payload.bugId)
         })
     },
-    changeStats({ commit, dispatch }, payload) {
-      _api.put()
+    changePending({ commit, dispatch }, payload) {
+      _api.put(payload.bugId + '/notes/' + payload.commentId, { flagged: "pending" })
+        .then(res => {
+          dispatch('getComments', payload.bugId)
+        })
+    },
+    changeCompleted({ commit, dispatch }, payload) {
+      _api.put(payload.bugId + '/notes/' + payload.commentId, { flagged: "completed" })
+        .then(res => {
+          dispatch('getComments', payload.bugId)
+        })
+    },
+    changeRejected({ commit, dispatch }, payload) {
+      _api.put(payload.bugId + '/notes/' + payload.commentId, { flagged: "rejected" })
+        .then(res => {
+          dispatch('getComments', payload.bugId)
+        })
+    },
+    deleteBug({ commit, dispatch }, payload) {
+      _api.delete(payload)
+        .then(res => {
+          dispatch('getBug', payload)
+        })
+    },
+    filterBugs({ commit, dispatch }) {
+      _api.get('')
+        .then(res => {
+          commit('setBugs', res.data.results.filter(bug => bug.closed == false))
+        })
+    },
+    editBug({ commit, dispatch }, payload) {
+      _api.put(payload.id, payload.description)
+        .then(res => {
+          dispatch('getBug', payload.id)
+        })
     }
   }
 })

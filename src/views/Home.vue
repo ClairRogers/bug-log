@@ -12,7 +12,11 @@
       <button class="btn btn-info mb-5" type="submit">SUBMIT</button>
     </form>
     <div class="centerthing">
-      <table class="table">
+      <button v-if="!showform" class="btn btn-secondary" @click="filter(), showform = !showform">View Active
+        Tickets</button>
+      <button v-if="showform" class="btn btn-secondary" @click="getBugs(), showform = !showform">View All
+        Tickets</button>
+      <table class="table mt-1">
         <thead>
           <tr class="table-active">
             <th scope="col">Created</th>
@@ -22,7 +26,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr @click="setActiveBug(bug)" v-for="bug in bugs" class="table-danger pointer">
+          <tr @click="setActiveBug(bug)" v-for="bug in bugs" class=" pointer"
+            v-bind:class="{'table-success': bug.closed,  'table-danger': !bug.closed}">
             <td scope="row">{{bug.createdAt | createdAtTransform}}</td>
             <th>{{bug.title}}</th>
             <td><i class="fas fa-user"></i> {{bug.creator}}</td>
@@ -35,9 +40,6 @@
 </template>
 
 <script>
-  // @ is an alias to /src
-
-
   export default {
     name: 'home',
     mounted() {
@@ -50,7 +52,8 @@
           title: '',
           creator: '',
           user: 'Clair'
-        }
+        },
+        showform: false
       }
     },
     components: {
@@ -84,7 +87,10 @@
     computed: {
       bugs() {
         return this.$store.state.bugs
-      }
+      },
+      // filter() {
+      //   return this.$store.state.bugs.filter(bug => bug.closed == false)
+      // }
     },
     methods: {
       createBug() {
@@ -92,6 +98,12 @@
       },
       setActiveBug(bug) {
         this.$store.dispatch('setActiveBug', bug)
+      },
+      filter() {
+        this.$store.dispatch('filterBugs')
+      },
+      getBugs() {
+        this.$store.dispatch('getBugs')
       }
     }
   }
