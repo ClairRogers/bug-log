@@ -12,7 +12,11 @@
           </div>
           <div class="card-body text-left">
             <h5 class="card-title"><i class="fas fa-user"></i> {{activeBug.creator}}</h5>
-            <p v-if="!showform" class="card-text">{{activeBug.description}}
+            <p v-if="!showform" class="card-text">
+              {{activeBug.description}}
+              <span v-if="activeBug.closed" class="greentext">
+                <p><b>Ticket is Closed</b></p>
+              </span>
             </p>
             <form v-if="showform" class="form-inline centerthing" @submit.prevent="editBug()">
               <textarea v-model="data2.description" class="form-control" cols="60" rows="2"
@@ -179,5 +183,11 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
+  }
+
+  .greentext {
+    color: rgb(0, 209, 0);
+    text-align: center;
+    text-emphasis: bold;
   }
 </style>
