@@ -1,20 +1,23 @@
 <template>
   <div class="home">
-    <h1>Helpdesk</h1>
-    <p>Welcome to Helpdesk! Here you can submit your questions and recieve answers.</p>
+    <h1 class="mt-4">HelpDesk</h1>
+    <p>Welcome to HelpDesk! Here you can submit your questions and recieve answers.</p>
     <form class="centerthing" @submit.prevent="createBug">
       <div class="form-group form-inline">
         <input class="form-control w-50" type="text" v-model="data.creator" placeholder="username" required>
-        <input class="form-control w-50" type="text" v-model="data.title" placeholder="title" required><br>
+        <input class="form-control w-50" type="text" v-model="data.title" placeholder="ticket title" required>
       </div>
       <textarea class="form-control w-50 mb-2" v-model="data.description" cols="80" rows="2"
         placeholder="describe the issue" required></textarea>
-      <button class="btn btn-info mb-5" type="submit">SUBMIT</button>
+      <button class="btn btn-info mb-3" type="submit">Submit Ticket</button>
     </form>
+    <div>
+      <hr>
+    </div>
     <div class="centerthing">
-      <button v-if="!showform" class="btn btn-secondary" @click="filter(), showform = !showform">View Active
+      <button v-if="!showform" class="btn btn-secondary mt-3" @click="filter(), showform = !showform">View Active
         Tickets</button>
-      <button v-if="showform" class="btn btn-secondary" @click="getBugs(), showform = !showform">View All
+      <button v-if="showform" class="btn btn-secondary mt-3" @click="getBugs(), showform = !showform">View All
         Tickets</button>
       <table class="table mt-1">
         <thead>
@@ -115,6 +118,10 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+  }
+
+  h1 {
+    font-family: 'Leckerli One', cursive;
   }
 
   .table {
