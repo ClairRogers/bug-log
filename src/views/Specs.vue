@@ -7,7 +7,7 @@
           <div class="card-header d-flex justify-content-between">
             <h2>{{activeBug.title}}</h2> <span><button @click="deleteBug()" class="btn btn-danger"
                 v-bind:class="{'disabled': activeBug.closed}"><i class="fas fa-trash-alt"></i></button>
-              <button @click="showform = !showform" class="btn btn-info ml-1"
+              <button @click="showform = !showform" class="btn btn-secondary ml-1"
                 v-bind:class="{'disabled': activeBug.closed}"><i class="far fa-edit"></i></button></span>
           </div>
           <div class="card-body text-left">
@@ -46,7 +46,7 @@
                 <button @click="deleteComment(comment._id)" class="btn btn-outline-danger mx-2">Delete
                   Comment</button>
                 <div class="btn-group" role="group">
-                  <button id="btnGroupDrop1" type="button" class="btn btn-outline-info dropdown-toggle mx-2"
+                  <button id="btnGroupDrop1" type="button" class="btn btn-outline-secondary dropdown-toggle mx-2"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Change Status
                   </button>
@@ -68,7 +68,7 @@
                 <button @click="deleteComment(comment._id)" class="btn btn-outline-danger mx-2">Delete
                   Comment</button>
                 <div class="btn-group" role="group">
-                  <button id="btnGroupDrop1" type="button" class="btn btn-outline-info dropdown-toggle mx-2"
+                  <button id="btnGroupDrop1" type="button" class="btn btn-outline-secondary dropdown-toggle mx-2"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Change Status
                   </button>
@@ -90,7 +90,7 @@
                 <button @click="deleteComment(comment._id)" class="btn btn-outline-danger mx-2">Delete
                   Comment</button>
                 <div class="btn-group" role="group">
-                  <button id="btnGroupDrop1" type="button" class="btn btn-outline-info dropdown-toggle mx-2"
+                  <button id="btnGroupDrop1" type="button" class="btn btn-outline-secondary dropdown-toggle mx-2"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Change Status
                   </button>

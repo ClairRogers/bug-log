@@ -9,7 +9,7 @@
       </div>
       <textarea class="form-control w-50 mb-2" v-model="data.description" cols="80" rows="2"
         placeholder="describe the issue" required></textarea>
-      <button class="btn btn-info mb-3" type="submit">Submit Ticket</button>
+      <button class="btn btn-success mb-3" type="submit">Submit Ticket</button>
     </form>
     <div>
       <hr>
@@ -20,7 +20,7 @@
       <button v-if="showform" class="btn btn-secondary mt-3" @click="getBugs(), showform = !showform">View All
         Tickets</button>
       <table class="table mt-1">
-        <thead>
+        <thead class="thead-dark">
           <tr class="table-active">
             <th scope="col">Created</th>
             <th scope="col">Title</th>
